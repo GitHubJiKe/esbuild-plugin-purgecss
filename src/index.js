@@ -21,7 +21,7 @@ module.exports = function purgecssPlugin(options) {
 
                 for (let index = 0; index < res.length; index++) {
                     const { file, css } = res[index]
-                    fs.writeFileSync(file, css)
+                    await fs.promises.writeFile(file, css)
                 }
             })
         }
