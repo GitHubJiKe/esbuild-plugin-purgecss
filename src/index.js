@@ -11,19 +11,17 @@ module.exports = function purgecssPlugin(options) {
 
             build.onEnd(async args => {
                 const outputKeys = Object.keys(args.metafile.outputs)
-
                 const genFilter = (postfix) => (k) => k.endsWith(postfix)
-                const resolvePath = (p) => path.resolve(__dirname, p)
 
-                const content = outputKeys.filter(genFilter('.js')).map(resolvePath)
-                const css = outputKeys.filter(genFilter('.css')).map(resolvePath)
+                const content = outputKeys.filter(genFilter('.js'))
+                const css = outputKeys.filter(genFilter('.css'))
                 const opts = options ? options : {}
 
                 const res = await new PurgeCSS().purge({ ...opts, content, css })
 
                 for (let index = 0; index < res.length; index++) {
                     const { file, css } = res[index]
-                    await fs.promises.writeFile(file, css)
+                    fs.writeFileSync(file, css)
                 }
             })
         }
