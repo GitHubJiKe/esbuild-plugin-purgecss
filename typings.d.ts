@@ -6,7 +6,7 @@ type TFullOptions = Exclude<NonNullable<Parameters<typeof PurgeCSS.prototype.pur
 
 declare type TOptions = Omit<TFullOptions, 'css' | 'content'>
 
-declare function purgecssPlugin(options: TOptions): Plugin;
+declare function purgecssPlugin(options?: TOptions): Plugin;
 
 
 export = purgecssPlugin;
